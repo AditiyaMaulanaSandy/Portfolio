@@ -501,26 +501,26 @@ export default function Portfolio() {
     
     if (activeFilter === 'projects') {
       return (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {content.map((item: any, index: number) => (
             <div 
               key={item.id} 
-              className="group relative transform hover:-translate-y-4 transition-all duration-700 ease-out"
+              className="group relative transform hover:-translate-y-2 sm:hover:-translate-y-4 transition-all duration-700 ease-out"
               style={{
                 animation: `float ${3.5 + index * 0.3}s ease-in-out infinite`,
                 animationDelay: `${index * 0.15}s`
               }}
             >
               {/* Floating shadow */}
-              <div className="absolute inset-0 bg-purple-500/20 rounded-3xl blur-xl translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-12 transition-all duration-700"></div>
+              <div className="absolute inset-0 bg-purple-500/20 rounded-2xl sm:rounded-3xl blur-xl translate-y-6 sm:translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-8 sm:group-hover:translate-y-12 transition-all duration-700"></div>
               
               {/* Main card */}
-              <div className="relative bg-[rgba(26,26,46,0.7)] backdrop-blur-md border border-gray-700/40 rounded-3xl overflow-hidden hover:bg-[rgba(26,26,46,0.9)] hover:border-purple-500/60 transition-all duration-700 hover:shadow-2xl hover:shadow-purple-500/30">
+              <div className="relative bg-[rgba(26,26,46,0.7)] backdrop-blur-md border border-gray-700/40 rounded-2xl sm:rounded-3xl overflow-hidden hover:bg-[rgba(26,26,46,0.9)] hover:border-purple-500/60 transition-all duration-700 hover:shadow-2xl hover:shadow-purple-500/30">
                 {/* Hover glow effect */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500/0 via-pink-500/0 to-purple-500/0 group-hover:from-purple-500/15 group-hover:via-pink-500/10 group-hover:to-purple-500/15 transition-all duration-700"></div>
+                <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-purple-500/0 via-pink-500/0 to-purple-500/0 group-hover:from-purple-500/15 group-hover:via-pink-500/10 group-hover:to-purple-500/15 transition-all duration-700"></div>
                 
                 <div className="relative z-10">
-                  <div className="relative h-56 overflow-hidden rounded-t-3xl">
+                  <div className="relative h-48 sm:h-56 overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -529,13 +529,13 @@ export default function Portfolio() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,26,46,0.8)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                   </div>
-                  <div className="p-8">
-                    <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-purple-200 transition-colors duration-500">{item.title}</h3>
-                    <p className="text-gray-400 text-base mb-8 leading-relaxed line-clamp-3 group-hover:text-gray-300 transition-colors duration-500">{item.description}</p>
+                  <div className="p-4 sm:p-6 lg:p-8">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-3 sm:mb-4 group-hover:text-purple-200 transition-colors duration-500 line-clamp-2">{item.title}</h3>
+                    <p className="text-gray-400 text-sm sm:text-base mb-4 sm:mb-6 lg:mb-8 leading-relaxed line-clamp-3 group-hover:text-gray-300 transition-colors duration-500">{item.description}</p>
                     <div className="flex justify-center">
                       <button 
                         onClick={() => openProjectModal(item)}
-                        className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-2xl font-semibold hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-500 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50"
+                        className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-500 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50"
                       >
                         View Details
                       </button>
@@ -553,28 +553,28 @@ export default function Portfolio() {
       const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, 8);
       
       return (
-        <div className="space-y-12">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="space-y-8 sm:space-y-12">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
             {displayedCertificates.map((item: any, index: number) => (
               <div 
                 key={item.id} 
                 onClick={() => openCertificateModal(item)}
-                className="group relative cursor-pointer transform hover:-translate-y-4 transition-all duration-700 ease-out"
+                className="group relative cursor-pointer transform hover:-translate-y-2 sm:hover:-translate-y-4 transition-all duration-700 ease-out"
                 style={{
                   animation: `float ${2.5 + index * 0.2}s ease-in-out infinite`,
                   animationDelay: `${index * 0.1}s`
                 }}
               >
                 {/* Floating shadow */}
-                <div className="absolute inset-0 bg-blue-500/20 rounded-3xl blur-xl translate-y-6 opacity-0 group-hover:opacity-100 group-hover:translate-y-10 transition-all duration-700"></div>
+                <div className="absolute inset-0 bg-blue-500/20 rounded-2xl sm:rounded-3xl blur-xl translate-y-4 sm:translate-y-6 opacity-0 group-hover:opacity-100 group-hover:translate-y-6 sm:group-hover:translate-y-10 transition-all duration-700"></div>
                 
                 {/* Main card */}
-                <div className="relative bg-[rgba(26,26,46,0.7)] backdrop-blur-md border border-gray-700/40 rounded-3xl p-6 hover:bg-[rgba(26,26,46,0.9)] hover:border-blue-500/60 transition-all duration-700 hover:shadow-2xl hover:shadow-blue-500/30">
+                <div className="relative bg-[rgba(26,26,46,0.7)] backdrop-blur-md border border-gray-700/40 rounded-2xl sm:rounded-3xl p-3 sm:p-4 lg:p-6 hover:bg-[rgba(26,26,46,0.9)] hover:border-blue-500/60 transition-all duration-700 hover:shadow-2xl hover:shadow-blue-500/30">
                   {/* Hover glow effect */}
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-cyan-500/0 to-blue-500/0 group-hover:from-blue-500/15 group-hover:via-cyan-500/10 group-hover:to-blue-500/15 transition-all duration-700"></div>
+                  <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-500/0 via-cyan-500/0 to-blue-500/0 group-hover:from-blue-500/15 group-hover:via-cyan-500/10 group-hover:to-blue-500/15 transition-all duration-700"></div>
                   
                   <div className="relative z-10">
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl mb-4">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl sm:rounded-2xl mb-2 sm:mb-4">
                       <Image
                         src={item.image}
                         alt={item.title}
@@ -582,8 +582,8 @@ export default function Portfolio() {
                         className="object-contain group-hover:scale-105 transition-transform duration-700"
                       />
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 group-hover:text-blue-200 transition-colors duration-500">{item.title}</h3>
-                    <p className="text-blue-400 font-medium text-sm">{item.issuer} • {item.date}</p>
+                    <h3 className="text-xs sm:text-sm lg:text-lg font-bold text-white mb-1 sm:mb-2 line-clamp-2 group-hover:text-blue-200 transition-colors duration-500">{item.title}</h3>
+                    <p className="text-blue-400 font-medium text-xs sm:text-sm line-clamp-1">{item.issuer} • {item.date}</p>
                   </div>
                 </div>
               </div>
@@ -594,10 +594,11 @@ export default function Portfolio() {
             <div className="text-center">
               <button
                 onClick={() => setShowAllCertificates(true)}
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-2xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-500 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transform hover:scale-105"
+                className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-500 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transform hover:scale-105"
               >
-                <span className="text-xl">➕</span>
-                Show More Certificates
+                <span className="text-lg sm:text-xl">➕</span>
+                <span className="hidden sm:inline">Show More Certificates</span>
+                <span className="sm:hidden">More Certificates</span>
               </button>
             </div>
           )}
@@ -606,9 +607,9 @@ export default function Portfolio() {
             <div className="text-center">
               <button
                 onClick={() => setShowAllCertificates(false)}
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white px-8 py-4 rounded-2xl font-semibold hover:from-gray-700 hover:to-gray-800 transition-all duration-500 shadow-lg shadow-gray-500/30 hover:shadow-gray-500/50 transform hover:scale-105"
+                className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold hover:from-gray-700 hover:to-gray-800 transition-all duration-500 shadow-lg shadow-gray-500/30 hover:shadow-gray-500/50 transform hover:scale-105"
               >
-                <span className="text-xl">➖</span>
+                <span className="text-lg sm:text-xl">➖</span>
                 Show Less
               </button>
             </div>
@@ -619,23 +620,23 @@ export default function Portfolio() {
 
     if (activeFilter === 'tech-stack') {
       return (
-        <div className="space-y-16">
+        <div className="space-y-8 sm:space-y-12 lg:space-y-16">
           {Object.entries(techStack).map(([category, items]) => (
             <div key={category} className="text-center">
-              <div className="mb-12">
-                <h3 className="text-3xl font-bold text-purple-400 mb-4">{category}</h3>
+              <div className="mb-6 sm:mb-8 lg:mb-12">
+                <h3 className="text-2xl sm:text-3xl font-bold text-purple-400 mb-2 sm:mb-4">{category}</h3>
                 <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-600/50 to-transparent"></div>
               </div>
               
               <div className="flex justify-center">
-                <div className={`grid gap-8 ${
-                  category === 'Front-End Development' ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-3xl' :
-                  category === 'Back-End Development' ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 max-w-4xl' :
-                  'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 max-w-5xl'
+                <div className={`grid gap-4 sm:gap-6 lg:gap-8 ${
+                  category === 'Front-End Development' ? 'grid-cols-2 sm:grid-cols-3 max-w-sm sm:max-w-2xl lg:max-w-3xl' :
+                  category === 'Back-End Development' ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 max-w-md sm:max-w-3xl lg:max-w-4xl' :
+                  'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 max-w-lg sm:max-w-4xl lg:max-w-5xl'
                 }`}>
                   {items.map((item: any) => (
-                    <div key={item.id} className="group relative bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 text-center transition-all duration-300 hover:scale-105 hover:bg-gray-800/60 hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/20">
-                      <div className="w-16 h-16 mx-auto mb-4 relative">
+                    <div key={item.id} className="group relative bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-6 text-center transition-all duration-300 hover:scale-105 hover:bg-gray-800/60 hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/20">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 mx-auto mb-2 sm:mb-3 lg:mb-4 relative">
                         <Image
                           src={item.icon}
                           alt={item.name}
@@ -643,8 +644,8 @@ export default function Portfolio() {
                           className="object-contain"
                         />
                       </div>
-                      <h4 className="text-lg font-semibold text-white mb-2">{item.name}</h4>
-                      <div className="text-purple-400 text-sm font-medium">{item.level}</div>
+                      <h4 className="text-sm sm:text-base lg:text-lg font-semibold text-white mb-1 sm:mb-2">{item.name}</h4>
+                      <div className="text-purple-400 text-xs sm:text-sm font-medium">{item.level}</div>
                     </div>
                   ))}
                 </div>
@@ -657,13 +658,13 @@ export default function Portfolio() {
 
     if (activeFilter === 'community') {
       return (
-        <div className="max-w-6xl mx-auto space-y-8">
+        <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
           {community.map((item: any) => (
-            <div key={item.id} className="group relative bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl overflow-hidden hover:bg-gray-800/60 hover:border-purple-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/25">
-              <div className="grid md:grid-cols-3 gap-0">
+            <div key={item.id} className="group relative bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-xl sm:rounded-2xl overflow-hidden hover:bg-gray-800/60 hover:border-purple-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/25">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
                 {/* Image Section */}
                 <div className="md:col-span-1">
-                  <div className="relative h-64 md:h-full min-h-[250px] overflow-hidden">
+                  <div className="relative h-48 sm:h-56 md:h-full min-h-[200px] sm:min-h-[250px] overflow-hidden">
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -674,19 +675,19 @@ export default function Portfolio() {
                 </div>
                 
                 {/* Content Section */}
-                <div className="md:col-span-2 p-6 md:p-8 flex flex-col justify-center">
-                  <div className="inline-block px-3 py-1 bg-purple-600/20 text-purple-300 text-xs font-medium rounded-full mb-4 w-fit">
+                <div className="md:col-span-2 p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
+                  <div className="inline-block px-3 py-1 bg-purple-600/20 text-purple-300 text-xs font-medium rounded-full mb-3 sm:mb-4 w-fit">
                     {item.role}
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-3 sm:mb-4 leading-tight line-clamp-2">
                     {item.title}
                   </h3>
-                  <p className="text-gray-300 text-base leading-relaxed mb-6">
+                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 line-clamp-3 sm:line-clamp-none">
                     {item.description}
                   </p>
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                    <span className="text-purple-400 font-semibold">{item.date}</span>
+                    <span className="text-purple-400 font-semibold text-sm sm:text-base">{item.date}</span>
                   </div>
                 </div>
               </div>
@@ -698,39 +699,44 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="py-20 bg-gradient-to-b from-[#16213e] to-[#1a1a2e] relative overflow-hidden">
+    <section id="portfolio" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-[#16213e] to-[#1a1a2e] relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-32 right-10 w-72 h-72 bg-purple-600/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-32 left-10 w-96 h-96 bg-pink-600/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-16 sm:top-32 right-5 sm:right-10 w-48 sm:w-72 h-48 sm:h-72 bg-purple-600/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-16 sm:bottom-32 left-5 sm:left-10 w-64 sm:w-96 h-64 sm:h-96 bg-pink-600/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
               Portfolio Showcase
             </h2>
-            <p className="text-lg text-gray-400 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg text-gray-400 max-w-4xl mx-auto leading-relaxed px-4">
               Explore my journey through projects, certifications, and technical expertise. Each section represents a milestone in my continuous learning path.
             </p>
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 mb-8 sm:mb-10 lg:mb-12 px-2">
             {filters.map((filter) => (
               <button
                 key={filter.id}
                 onClick={() => setActiveFilter(filter.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 ${
                   activeFilter === filter.id
                     ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-lg shadow-purple-500/25'
                     : 'bg-gray-800/40 text-gray-400 border border-gray-700/50 hover:bg-gray-800/60 hover:text-white hover:border-purple-500/30'
                 }`}
               >
-                <i className={filter.icon}></i>
-                {filter.label}
+                <i className={`${filter.icon} text-xs sm:text-sm`}></i>
+                <span className="hidden xs:inline sm:inline">{filter.label}</span>
+                <span className="xs:hidden sm:hidden text-xs">
+                  {filter.id === 'projects' ? 'Projects' : 
+                   filter.id === 'certificates' ? 'Certs' :
+                   filter.id === 'tech-stack' ? 'Tech' : 'Community'}
+                </span>
               </button>
             ))}
           </div>
@@ -745,68 +751,69 @@ export default function Portfolio() {
         <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 overflow-y-auto">
           <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] to-[#16213e]">
             {/* Modal Header with Breadcrumb */}
-            <div className="border-b border-gray-700/30 bg-gray-900/50 backdrop-blur-sm">
-              <div className="max-w-7xl mx-auto px-6 py-4">
+            <div className="border-b border-gray-700/30 bg-gray-900/50 backdrop-blur-sm sticky top-0 z-10">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3 sm:gap-4">
                     <button
                       onClick={closeModal}
-                      className="flex items-center gap-2 bg-purple-600/20 border border-purple-500/30 text-purple-300 px-4 py-2 rounded-lg hover:bg-purple-600/30 transition-all duration-300"
+                      className="flex items-center gap-2 bg-purple-600/20 border border-purple-500/30 text-purple-300 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base hover:bg-purple-600/30 transition-all duration-300"
                     >
                       <i className="fas fa-arrow-left"></i>
-                      Kembali
+                      <span className="hidden sm:inline">Kembali</span>
                     </button>
-                    <div className="text-gray-400 text-sm">
-                      Projects &gt; <span className="text-purple-400">{selectedProject.title}</span>
+                    <div className="text-gray-400 text-xs sm:text-sm">
+                      <span className="hidden sm:inline">Projects &gt;</span>
+                      <span className="text-purple-400 ml-1">{selectedProject.title}</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Modal Content - Two Column Layout */}
-            <div className="max-w-7xl mx-auto p-6">
-              <div className="grid lg:grid-cols-2 gap-12">
+            {/* Modal Content - Responsive Layout */}
+            <div className="max-w-7xl mx-auto p-4 sm:p-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
                 {/* Left Column - Project Info */}
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                   <div>
-                    <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 sm:mb-4 leading-tight">
                       {selectedProject.title}
                     </h1>
-                    <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mb-6"></div>
+                    <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mb-4 sm:mb-6"></div>
                   </div>
 
-                  <p className="text-gray-300 text-lg leading-relaxed">
+                  <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed">
                     {selectedProject.detailDescription}
                   </p>
 
                   {/* Stats */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gray-800/50 border border-purple-500/20 rounded-2xl p-6 text-center">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                    <div className="bg-gray-800/50 border border-purple-500/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-center">
                       <div className="flex items-center justify-center mb-2">
                         <i className="fas fa-code text-purple-400 mr-2"></i>
-                        <span className="text-2xl font-bold text-white">{selectedProject.technologies.length}</span>
+                        <span className="text-xl sm:text-2xl font-bold text-white">{selectedProject.technologies.length}</span>
                       </div>
-                      <div className="text-purple-300 font-medium text-sm">Total technology</div>
+                      <div className="text-purple-300 font-medium text-xs sm:text-sm">Total technology</div>
                     </div>
-                    <div className="bg-gray-800/50 border border-purple-500/20 rounded-2xl p-6 text-center">
+                    <div className="bg-gray-800/50 border border-purple-500/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-center">
                       <div className="flex items-center justify-center mb-2">
                         <i className="fas fa-star text-purple-400 mr-2"></i>
-                        <span className="text-2xl font-bold text-white">{selectedProject.features.length}</span>
+                        <span className="text-xl sm:text-2xl font-bold text-white">{selectedProject.features.length}</span>
                       </div>
-                      <div className="text-purple-300 font-medium text-sm">Key Features</div>
+                      <div className="text-purple-300 font-medium text-xs sm:text-sm">Key Features</div>
                     </div>
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-4">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     {/* Hide Demo Langsung button for ExamGuard (id: 5) and Rooter Cisco (id: 7) */}
                     {selectedProject.id !== 5 && selectedProject.id !== 7 && (
                       <a
                         href={selectedProject.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-3 rounded-lg font-medium hover:from-purple-700 hover:to-purple-800 transition-all duration-300"
+                        className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 sm:px-6 py-3 rounded-lg text-sm sm:text-base font-medium hover:from-purple-700 hover:to-purple-800 transition-all duration-300"
                       >
                         <i className="fas fa-external-link-alt"></i>
                         Live Demo
@@ -818,13 +825,14 @@ export default function Portfolio() {
                         href={selectedProject.detailsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 bg-gray-800 text-gray-300 px-6 py-3 rounded-lg font-medium hover:bg-gray-700 transition-all duration-300"
+                        className="flex items-center justify-center gap-2 bg-gray-800 text-gray-300 px-4 sm:px-6 py-3 rounded-lg text-sm sm:text-base font-medium hover:bg-gray-700 transition-all duration-300"
                       >
                         {/* Change GitHub to Figma Prototype for Figma Sistem Cek Plagiarisme (id: 6) */}
                         {selectedProject.id === 6 ? (
                           <>
                             <i className="fab fa-figma"></i>
-                            Figma Prototype
+                            <span className="hidden sm:inline">Figma Prototype</span>
+                            <span className="sm:hidden">Figma</span>
                           </>
                         ) : (
                           <>
@@ -838,7 +846,7 @@ export default function Portfolio() {
 
                   {/* Technologies */}
                   <div>
-                    <h3 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+                    <h3 className="text-lg sm:text-xl font-bold text-purple-400 mb-3 sm:mb-4 flex items-center gap-2">
                       <i className="fas fa-code"></i>
                       Technology Used
                     </h3>
@@ -846,7 +854,7 @@ export default function Portfolio() {
                       {selectedProject.technologies.map((tech: string, index: number) => (
                         <span
                           key={index}
-                          className="bg-gray-800/60 text-gray-300 px-3 py-2 rounded-lg text-sm border border-gray-600/30"
+                          className="bg-gray-800/60 text-gray-300 px-3 py-2 rounded-lg text-xs sm:text-sm border border-gray-600/30"
                         >
                           {tech}
                         </span>
@@ -856,10 +864,10 @@ export default function Portfolio() {
                 </div>
 
                 {/* Right Column - Visual Content */}
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                   {/* Main Preview */}
-                  <div className="bg-gray-800/30 border border-gray-700/30 rounded-2xl p-6">
-                    <div className="relative h-64 md:h-80 w-full rounded-lg overflow-hidden bg-gray-700/50">
+                  <div className="bg-gray-800/30 border border-gray-700/30 rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                    <div className="relative h-48 sm:h-64 lg:h-80 w-full rounded-lg overflow-hidden bg-gray-700/50">
                       <Image
                         src={selectedProject.gallery && selectedProject.gallery.length > 0 ? selectedProject.gallery[activeImageIndex] : selectedProject.image}
                         alt={selectedProject.title}
@@ -872,16 +880,16 @@ export default function Portfolio() {
                   {/* Gallery */}
                   {selectedProject.gallery && selectedProject.gallery.length > 1 && (
                     <div>
-                      <h3 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+                      <h3 className="text-lg sm:text-xl font-bold text-purple-400 mb-3 sm:mb-4 flex items-center gap-2">
                         <i className="fas fa-images"></i>
                         Galery
                       </h3>
-                      <div className="grid grid-cols-3 md:grid-cols-4 gap-3">
+                      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3">
                         {selectedProject.gallery.map((image: string, index: number) => (
                           <button
                             key={index}
                             onClick={() => changeActiveImage(index)}
-                            className={`relative h-20 md:h-24 rounded-lg overflow-hidden bg-gray-700/50 border-2 transition-all duration-300 ${
+                            className={`relative h-16 sm:h-20 lg:h-24 rounded-lg overflow-hidden bg-gray-700/50 border-2 transition-all duration-300 ${
                               activeImageIndex === index 
                                 ? 'border-purple-500 ring-2 ring-purple-500/50' 
                                 : 'border-gray-600/30 hover:border-purple-400/50'
@@ -895,7 +903,7 @@ export default function Portfolio() {
                             />
                             {activeImageIndex === index && (
                               <div className="absolute inset-0 bg-purple-500/20 flex items-center justify-center">
-                                <i className="fas fa-eye text-white text-lg"></i>
+                                <i className="fas fa-eye text-white text-sm sm:text-lg"></i>
                               </div>
                             )}
                           </button>
@@ -906,15 +914,15 @@ export default function Portfolio() {
 
                   {/* Features */}
                   <div>
-                    <h3 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-2">
+                    <h3 className="text-lg sm:text-xl font-bold text-purple-400 mb-3 sm:mb-4 flex items-center gap-2">
                       <i className="fas fa-star"></i>
                       Key Features
                     </h3>
-                    <div className="space-y-3">
+                    <div className="space-y-2 sm:space-y-3">
                       {selectedProject.features.map((feature: string, index: number) => (
-                        <div key={index} className="flex items-start gap-3 bg-gray-800/30 border border-gray-700/30 rounded-lg p-4">
+                        <div key={index} className="flex items-start gap-3 bg-gray-800/30 border border-gray-700/30 rounded-lg p-3 sm:p-4">
                           <div className="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-gray-300">{feature}</span>
+                          <span className="text-gray-300 text-sm sm:text-base">{feature}</span>
                         </div>
                       ))}
                     </div>
@@ -929,23 +937,23 @@ export default function Portfolio() {
       {/* Certificate Modal */}
       {showCertificateModal && selectedCertificate && (
         <div 
-          className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4"
           onClick={closeCertificateModal}
         >
           <div 
-            className="relative max-w-5xl w-full max-h-[90vh] bg-white rounded-3xl overflow-hidden shadow-2xl"
+            className="relative max-w-5xl w-full max-h-[95vh] sm:max-h-[90vh] bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={closeCertificateModal}
-              className="absolute top-4 right-4 z-10 w-10 h-10 bg-gray-200/80 hover:bg-gray-300/80 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 transition-all duration-300"
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 w-8 h-8 sm:w-10 sm:h-10 bg-gray-200/80 hover:bg-gray-300/80 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 transition-all duration-300"
             >
-              <i className="fas fa-times text-lg"></i>
+              <i className="fas fa-times text-sm sm:text-lg"></i>
             </button>
             
             {/* Certificate Image */}
-            <div className="relative w-full h-full min-h-[400px] max-h-[80vh]">
+            <div className="relative w-full h-full min-h-[300px] sm:min-h-[400px] max-h-[85vh] sm:max-h-[80vh]">
               <Image
                 src={selectedCertificate.image}
                 alt={selectedCertificate.title}

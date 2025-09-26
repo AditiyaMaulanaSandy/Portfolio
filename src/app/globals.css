@@ -146,6 +146,30 @@ body {
   background: linear-gradient(135deg, #7c3aed, #db2777);
 }
 
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+  /* Prevent zoom on input focus on iOS */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Touch targets */
+  button, a {
+    min-height: 44px;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -159,5 +183,32 @@ body {
   /* Custom backdrop blur */
   .backdrop-blur-custom {
     backdrop-filter: blur(10px);
+  }
+  
+  /* Mobile responsive utilities */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Line clamping utilities */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }

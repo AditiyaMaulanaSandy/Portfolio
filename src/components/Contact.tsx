@@ -37,11 +37,11 @@ export default function Contact() {
           {/* Section Header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-              Let's Collaborate
+              Let&apos;s Collaborate
 
             </h2>
             <p className="text-xl text-purple-400 max-w-2xl mx-auto">
-              Ready to start a project together? Let's discuss it!
+              Ready to start a project together? Let&apos;s discuss it!
             </p>
           </div>
 
