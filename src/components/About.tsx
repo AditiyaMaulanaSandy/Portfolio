@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 export default function About() {
   const [visibleStats, setVisibleStats] = useState(false);
+  const [animatedStats, setAnimatedStats] = useState({ projects: 0, certificates: 0, years: 0 });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -15,7 +16,7 @@ export default function About() {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.1 } // Reduced threshold from 0.5 to 0.1 for better triggering
     );
 
     const aboutSection = document.getElementById('about');
@@ -23,8 +24,42 @@ export default function About() {
       observer.observe(aboutSection);
     }
 
-    return () => observer.disconnect();
+    // Fallback: Set stats visible after a delay if intersection observer doesn't work
+    const fallbackTimer = setTimeout(() => {
+      setVisibleStats(true);
+    }, 2000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallbackTimer);
+    };
   }, []);
+
+  // Animate counters when visibleStats becomes true
+  useEffect(() => {
+    if (visibleStats) {
+      const animateCounter = (target: number, key: 'projects' | 'certificates' | 'years') => {
+        let current = 0;
+        const increment = target / 30; // 30 steps for smooth animation
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          setAnimatedStats(prev => ({
+            ...prev,
+            [key]: Math.floor(current)
+          }));
+        }, 50); // Update every 50ms
+      };
+
+      // Start animations with slight delays
+      setTimeout(() => animateCounter(6, 'projects'), 300);
+      setTimeout(() => animateCounter(13, 'certificates'), 500);
+      setTimeout(() => animateCounter(2, 'years'), 700);
+    }
+  }, [visibleStats]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -145,7 +180,7 @@ export default function About() {
             <div className="grid grid-cols-1 gap-6 sm:gap-8">
               <div className="bg-gradient-to-r from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6 sm:p-8 text-center transform hover:scale-105 transition-all duration-300">
                 <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-2">
-                  {visibleStats ? 6 : 0}+
+                  {visibleStats ? animatedStats.projects : 0}+
                 </div>
                 <div className="text-purple-300 font-semibold mb-1 text-sm sm:text-base">
                   TOTAL PROJECTS
@@ -157,7 +192,7 @@ export default function About() {
               
               <div className="bg-gradient-to-r from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6 sm:p-8 text-center transform hover:scale-105 transition-all duration-300">
                 <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-2">
-                  {visibleStats ? 13 : 0}+
+                  {visibleStats ? animatedStats.certificates : 0}+
                 </div>
                 <div className="text-purple-300 font-semibold mb-1 text-sm sm:text-base">
                   CERTIFICATES
@@ -169,7 +204,7 @@ export default function About() {
               
               <div className="bg-gradient-to-r from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6 sm:p-8 text-center transform hover:scale-105 transition-all duration-300">
                 <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-2">
-                  {visibleStats ? 2 : 0}+
+                  {visibleStats ? animatedStats.years : 0}+
                 </div>
                 <div className="text-purple-300 font-semibold mb-1 text-sm sm:text-base">
                   YEARS OF EXPERIENCE

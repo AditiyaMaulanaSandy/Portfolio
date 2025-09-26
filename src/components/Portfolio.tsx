@@ -531,7 +531,7 @@ export default function Portfolio() {
                   </div>
                   <div className="p-4 sm:p-6 lg:p-8">
                     <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-3 sm:mb-4 group-hover:text-purple-200 transition-colors duration-500 line-clamp-2">{item.title}</h3>
-                    <p className="text-gray-400 text-sm sm:text-base mb-4 sm:mb-6 lg:mb-8 leading-relaxed line-clamp-3 group-hover:text-gray-300 transition-colors duration-500">{item.description}</p>
+                    <p className="text-gray-400 text-sm sm:text-base mb-4 sm:mb-6 lg:mb-8 leading-relaxed line-clamp-3 group-hover:text-gray-300 transition-colors duration-500 text-justify">{item.description}</p>
                     <div className="flex justify-center">
                       <button 
                         onClick={() => openProjectModal(item)}
@@ -783,7 +783,7 @@ export default function Portfolio() {
                     <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mb-4 sm:mb-6"></div>
                   </div>
 
-                  <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed">
+                  <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed text-justify">
                     {selectedProject.detailDescription}
                   </p>
 
