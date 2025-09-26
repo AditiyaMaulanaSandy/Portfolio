@@ -11,6 +11,9 @@ A modern portfolio website built with Next.js, React, and TypeScript, styled wit
 - ⚡ Fast development with Hot Module Replacement
 - 🔧 ESLint for code linting
 - 🏗️ App Router architecture
+- 📧 Contact form with EmailJS integration
+- ✨ Modern animations and transitions
+- 🎯 SEO optimized
 
 ## Getting Started
 
@@ -62,21 +65,56 @@ Run ESLint to check for code issues:
 npm run lint
 ```
 
+## Contact Form Setup
+
+The portfolio includes a contact form that sends emails using EmailJS. To set it up:
+
+1. **Create EmailJS Account**: Sign up at [https://www.emailjs.com](https://www.emailjs.com)
+
+2. **Copy Environment File**: 
+   ```bash
+   cp .env.local.example .env.local
+   ```
+
+3. **Configure EmailJS**: Update `.env.local` with your EmailJS credentials:
+   ```env
+   NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+   ```
+
+4. **Detailed Setup**: See [SETUP_EMAIL.md](./SETUP_EMAIL.md) for complete instructions
+
 ## Project Structure
 
 ```
-├── public/             # Static assets (images, icons, etc.)
+├── public/               # Static assets (images, icons, etc.)
 ├── src/
-│   └── app/           # App Router pages and layouts
-│       ├── globals.css # Global styles with Tailwind CSS
-│       ├── layout.tsx  # Root layout component
-│       └── page.tsx    # Home page component
-├── .eslintrc.js       # ESLint configuration
-├── next.config.mjs    # Next.js configuration
-├── package.json       # Project dependencies and scripts
-├── postcss.config.js  # PostCSS configuration for Tailwind
-├── tailwind.config.ts # Tailwind CSS configuration
-└── tsconfig.json      # TypeScript configuration
+│   ├── app/             # App Router pages and layouts
+│   │   ├── globals.css  # Global styles with Tailwind CSS
+│   │   ├── layout.tsx   # Root layout component
+│   │   └── page.tsx     # Home page component
+│   ├── components/      # Reusable React components
+│   │   ├── About.tsx    # About section component
+│   │   ├── Contact.tsx  # Contact form component
+│   │   ├── Footer.tsx   # Footer component
+│   │   ├── Header.tsx   # Header/Navigation component
+│   │   ├── Hero.tsx     # Hero section component
+│   │   └── Portfolio.tsx # Portfolio section component
+│   ├── config/          # Configuration files
+│   │   └── email.ts     # EmailJS configuration
+│   ├── hooks/           # Custom React hooks
+│   │   └── useBackHandler.ts # Mobile back button handler
+│   └── utils/           # Utility functions
+│       └── emailService.ts # Email sending service
+├── .env.local.example   # Environment variables template
+├── .eslintrc.js        # ESLint configuration
+├── next.config.mjs     # Next.js configuration
+├── package.json        # Project dependencies and scripts
+├── postcss.config.js   # PostCSS configuration for Tailwind
+├── SETUP_EMAIL.md      # Email setup instructions
+├── tailwind.config.ts  # Tailwind CSS configuration
+└── tsconfig.json       # TypeScript configuration
 ```
 
 ## Customization
@@ -92,6 +130,7 @@ npm run lint
 - **React** - JavaScript library for building user interfaces
 - **TypeScript** - Typed superset of JavaScript
 - **Tailwind CSS** - Utility-first CSS framework
+- **EmailJS** - Email service for contact forms
 - **ESLint** - Code linting utility
 - **npm** - Package manager
 
