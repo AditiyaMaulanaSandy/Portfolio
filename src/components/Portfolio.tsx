@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useBackHandler } from '../hooks/useBackHandler';
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('projects');
@@ -13,27 +14,43 @@ export default function Portfolio() {
   const [showCertificateModal, setShowCertificateModal] = useState(false);
 
   const filters = [
-    { id: 'projects', label: 'Proyek', icon: 'fas fa-code' },
-    { id: 'certificates', label: 'Sertifikat', icon: 'fas fa-certificate' },
-    { id: 'tech-stack', label: 'Tech Stack', icon: 'fas fa-tools' },
-    { id: 'community', label: 'Komunitas', icon: 'fas fa-users' }
+    { id: 'projects', label: 'Project', icon: '💻' },
+    { id: 'certificates', label: 'Certificate', icon: '🏅' },
+    { id: 'tech-stack', label: 'Tech Stack', icon: '🛠️' },
+    { id: 'community', label: 'Community', icon: '👥' }
   ];
 
   // Effect to control body scroll when modal is open
   useEffect(() => {
     if (showModal || showCertificateModal) {
-      // Disable scroll
       document.body.style.overflow = 'hidden';
     } else {
-      // Enable scroll
       document.body.style.overflow = 'unset';
     }
 
-    // Cleanup function to ensure scroll is restored
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, [showModal, showCertificateModal]);
+
+  // Handle back button for project modal
+  const { handleClose: handleProjectModalClose } = useBackHandler({
+    isModalOpen: showModal,
+    onBackAction: () => {
+      setShowModal(false);
+      setSelectedProject(null);
+      setActiveImageIndex(0);
+    }
+  });
+
+  // Handle back button for certificate modal
+  const { handleClose: handleCertificateModalClose } = useBackHandler({
+    isModalOpen: showCertificateModal,
+    onBackAction: () => {
+      setShowCertificateModal(false);
+      setSelectedCertificate(null);
+    }
+  });
 
   const openProjectModal = (project: any) => {
     setSelectedProject(project);
@@ -42,9 +59,7 @@ export default function Portfolio() {
   };
 
   const closeModal = () => {
-    setShowModal(false);
-    setSelectedProject(null);
-    setActiveImageIndex(0);
+    handleProjectModalClose();
   };
 
   const changeActiveImage = (index: number) => {
@@ -57,8 +72,7 @@ export default function Portfolio() {
   };
 
   const closeCertificateModal = () => {
-    setShowCertificateModal(false);
-    setSelectedCertificate(null);
+    handleCertificateModalClose();
   };
 
   const projects = [
@@ -474,7 +488,7 @@ export default function Portfolio() {
       id: 5,
       title: 'Character Building: Pancasila - Binus University',
       category: 'community',
-      image: '/images/Comunity 1.JPG',
+      image: '/images/Comunity 1.jpg',
       description: 'Became an event organizer and delivered material (Explanation of Corruption & Cases and Criminal Law of Corruption in Indonesia).',
       date: '2023',
       role: 'Event Organizer'
@@ -501,26 +515,23 @@ export default function Portfolio() {
     
     if (activeFilter === 'projects') {
       return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {content.map((item: any, index: number) => (
             <div 
               key={item.id} 
-              className="group relative transform hover:-translate-y-2 sm:hover:-translate-y-4 transition-all duration-700 ease-out"
+              className="group relative transform hover:-translate-y-4 transition-all duration-700 ease-out"
               style={{
                 animation: `float ${3.5 + index * 0.3}s ease-in-out infinite`,
                 animationDelay: `${index * 0.15}s`
               }}
             >
-              {/* Floating shadow */}
-              <div className="absolute inset-0 bg-purple-500/20 rounded-2xl sm:rounded-3xl blur-xl translate-y-6 sm:translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-8 sm:group-hover:translate-y-12 transition-all duration-700"></div>
+              <div className="absolute inset-0 bg-purple-500/20 rounded-3xl blur-xl translate-y-8 opacity-0 group-hover:opacity-100 group-hover:translate-y-12 transition-all duration-700"></div>
               
-              {/* Main card */}
-              <div className="relative bg-[rgba(26,26,46,0.7)] backdrop-blur-md border border-gray-700/40 rounded-2xl sm:rounded-3xl overflow-hidden hover:bg-[rgba(26,26,46,0.9)] hover:border-purple-500/60 transition-all duration-700 hover:shadow-2xl hover:shadow-purple-500/30">
-                {/* Hover glow effect */}
-                <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-purple-500/0 via-pink-500/0 to-purple-500/0 group-hover:from-purple-500/15 group-hover:via-pink-500/10 group-hover:to-purple-500/15 transition-all duration-700"></div>
+              <div className="relative bg-[rgba(26,26,46,0.7)] backdrop-blur-md border border-gray-700/40 rounded-3xl overflow-hidden hover:bg-[rgba(26,26,46,0.9)] hover:border-purple-500/60 transition-all duration-700 hover:shadow-2xl hover:shadow-purple-500/30">
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500/0 via-pink-500/0 to-purple-500/0 group-hover:from-purple-500/15 group-hover:via-pink-500/10 group-hover:to-purple-500/15 transition-all duration-700"></div>
                 
                 <div className="relative z-10">
-                  <div className="relative h-48 sm:h-56 overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
+                  <div className="relative h-56 overflow-hidden rounded-t-3xl">
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -529,13 +540,13 @@ export default function Portfolio() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[rgba(26,26,46,0.8)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                   </div>
-                  <div className="p-4 sm:p-6 lg:p-8">
-                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-3 sm:mb-4 group-hover:text-purple-200 transition-colors duration-500 line-clamp-2">{item.title}</h3>
-                    <p className="text-gray-400 text-sm sm:text-base mb-4 sm:mb-6 lg:mb-8 leading-relaxed line-clamp-3 group-hover:text-gray-300 transition-colors duration-500 text-justify">{item.description}</p>
+                  <div className="p-8">
+                    <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-purple-200 transition-colors duration-500">{item.title}</h3>
+                    <p className="text-gray-400 text-base mb-8 leading-relaxed line-clamp-3 group-hover:text-gray-300 transition-colors duration-500 text-justify">{item.description}</p>
                     <div className="flex justify-center">
                       <button 
                         onClick={() => openProjectModal(item)}
-                        className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-500 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50"
+                        className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-2xl font-semibold hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-500 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50"
                       >
                         View Details
                       </button>
@@ -553,28 +564,25 @@ export default function Portfolio() {
       const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, 8);
       
       return (
-        <div className="space-y-8 sm:space-y-12">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
+        <div className="space-y-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {displayedCertificates.map((item: any, index: number) => (
               <div 
                 key={item.id} 
                 onClick={() => openCertificateModal(item)}
-                className="group relative cursor-pointer transform hover:-translate-y-2 sm:hover:-translate-y-4 transition-all duration-700 ease-out"
+                className="group relative cursor-pointer transform hover:-translate-y-4 transition-all duration-700 ease-out"
                 style={{
                   animation: `float ${2.5 + index * 0.2}s ease-in-out infinite`,
                   animationDelay: `${index * 0.1}s`
                 }}
               >
-                {/* Floating shadow */}
-                <div className="absolute inset-0 bg-blue-500/20 rounded-2xl sm:rounded-3xl blur-xl translate-y-4 sm:translate-y-6 opacity-0 group-hover:opacity-100 group-hover:translate-y-6 sm:group-hover:translate-y-10 transition-all duration-700"></div>
+                <div className="absolute inset-0 bg-blue-500/20 rounded-3xl blur-xl translate-y-6 opacity-0 group-hover:opacity-100 group-hover:translate-y-10 transition-all duration-700"></div>
                 
-                {/* Main card */}
-                <div className="relative bg-[rgba(26,26,46,0.7)] backdrop-blur-md border border-gray-700/40 rounded-2xl sm:rounded-3xl p-3 sm:p-4 lg:p-6 hover:bg-[rgba(26,26,46,0.9)] hover:border-blue-500/60 transition-all duration-700 hover:shadow-2xl hover:shadow-blue-500/30">
-                  {/* Hover glow effect */}
-                  <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-500/0 via-cyan-500/0 to-blue-500/0 group-hover:from-blue-500/15 group-hover:via-cyan-500/10 group-hover:to-blue-500/15 transition-all duration-700"></div>
+                <div className="relative bg-[rgba(26,26,46,0.7)] backdrop-blur-md border border-gray-700/40 rounded-3xl p-4 hover:bg-[rgba(26,26,46,0.9)] hover:border-blue-500/60 transition-all duration-700 hover:shadow-2xl hover:shadow-blue-500/30">
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-cyan-500/0 to-blue-500/0 group-hover:from-blue-500/15 group-hover:via-cyan-500/10 group-hover:to-blue-500/15 transition-all duration-700"></div>
                   
                   <div className="relative z-10">
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl sm:rounded-2xl mb-2 sm:mb-4">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
                       <Image
                         src={item.image}
                         alt={item.title}
@@ -582,8 +590,6 @@ export default function Portfolio() {
                         className="object-contain group-hover:scale-105 transition-transform duration-700"
                       />
                     </div>
-                    <h3 className="text-xs sm:text-sm lg:text-lg font-bold text-white mb-1 sm:mb-2 line-clamp-2 group-hover:text-blue-200 transition-colors duration-500">{item.title}</h3>
-                    <p className="text-blue-400 font-medium text-xs sm:text-sm line-clamp-1">{item.issuer} • {item.date}</p>
                   </div>
                 </div>
               </div>
@@ -594,11 +600,10 @@ export default function Portfolio() {
             <div className="text-center">
               <button
                 onClick={() => setShowAllCertificates(true)}
-                className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-500 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transform hover:scale-105"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-2xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-500 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transform hover:scale-105"
               >
-                <span className="text-lg sm:text-xl">➕</span>
-                <span className="hidden sm:inline">Show More Certificates</span>
-                <span className="sm:hidden">More Certificates</span>
+                <span className="text-xl">➕</span>
+                Show More
               </button>
             </div>
           )}
@@ -607,9 +612,9 @@ export default function Portfolio() {
             <div className="text-center">
               <button
                 onClick={() => setShowAllCertificates(false)}
-                className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold hover:from-gray-700 hover:to-gray-800 transition-all duration-500 shadow-lg shadow-gray-500/30 hover:shadow-gray-500/50 transform hover:scale-105"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white px-8 py-4 rounded-2xl font-semibold hover:from-gray-700 hover:to-gray-800 transition-all duration-500 shadow-lg shadow-gray-500/30 hover:shadow-gray-500/50 transform hover:scale-105"
               >
-                <span className="text-lg sm:text-xl">➖</span>
+                <span className="text-xl">➖</span>
                 Show Less
               </button>
             </div>
@@ -620,32 +625,60 @@ export default function Portfolio() {
 
     if (activeFilter === 'tech-stack') {
       return (
-        <div className="space-y-8 sm:space-y-12 lg:space-y-16">
-          {Object.entries(techStack).map(([category, items]) => (
+        <div className="space-y-16">
+          {Object.entries(techStack).map(([category, items], categoryIndex) => (
             <div key={category} className="text-center">
-              <div className="mb-6 sm:mb-8 lg:mb-12">
-                <h3 className="text-2xl sm:text-3xl font-bold text-purple-400 mb-2 sm:mb-4">{category}</h3>
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-600/50 to-transparent"></div>
+              {/* Category Header */}
+              <div className="mb-12">
+                <h3 className="text-3xl font-bold text-purple-400 mb-8">
+                  {category === 'Front-End Development' ? 'Back-End Development' :
+                   category === 'Back-End Development' ? 'Front-End Development' :
+                   'Tools & Platforms'}
+                </h3>
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
               </div>
-              
+
+              {/* Tech Grid */}
               <div className="flex justify-center">
-                <div className={`grid gap-4 sm:gap-6 lg:gap-8 ${
-                  category === 'Front-End Development' ? 'grid-cols-2 sm:grid-cols-3 max-w-sm sm:max-w-2xl lg:max-w-3xl' :
-                  category === 'Back-End Development' ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 max-w-md sm:max-w-3xl lg:max-w-4xl' :
-                  'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 max-w-lg sm:max-w-4xl lg:max-w-5xl'
+                <div className={`grid gap-6 ${
+                  category === 'Front-End Development' ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-4xl' :
+                  category === 'Back-End Development' ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 max-w-5xl' :
+                  'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 max-w-6xl'
                 }`}>
-                  {items.map((item: any) => (
-                    <div key={item.id} className="group relative bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-6 text-center transition-all duration-300 hover:scale-105 hover:bg-gray-800/60 hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/20">
-                      <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 mx-auto mb-2 sm:mb-3 lg:mb-4 relative">
-                        <Image
-                          src={item.icon}
-                          alt={item.name}
-                          fill
-                          className="object-contain"
-                        />
+                  {items.map((item: any, index: number) => (
+                    <div 
+                      key={item.id}
+                      className="group relative transform hover:-translate-y-2 transition-all duration-500 ease-out"
+                      style={{
+                        animation: `float ${3.5 + index * 0.2}s ease-in-out infinite`,
+                        animationDelay: `${(categoryIndex * items.length + index) * 0.1}s`
+                      }}
+                    >
+                      {/* Floating shadow */}
+                      <div className="absolute inset-0 bg-purple-500/20 rounded-2xl blur-xl translate-y-6 opacity-0 group-hover:opacity-100 group-hover:translate-y-8 transition-all duration-500"></div>
+                      
+                      {/* Main card */}
+                      <div className="relative bg-[rgba(26,26,46,0.7)] backdrop-blur-md border border-gray-700/40 rounded-2xl aspect-square flex flex-col items-center justify-center text-center hover:bg-[rgba(26,26,46,0.9)] hover:border-purple-500/60 transition-all duration-500 hover:shadow-xl hover:shadow-purple-500/25">
+                        {/* Hover glow effect */}
+                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/0 via-pink-500/0 to-purple-500/0 group-hover:from-purple-500/10 group-hover:via-pink-500/5 group-hover:to-purple-500/10 transition-all duration-500"></div>
+                        
+                        <div className="relative z-10 p-6">
+                          {/* Tech Icon */}
+                          <div className="w-16 h-16 mx-auto mb-4 relative">
+                            <Image
+                              src={item.icon}
+                              alt={item.name}
+                              fill
+                              className="object-contain filter group-hover:brightness-110 transition-all duration-500"
+                            />
+                          </div>
+                          
+                          {/* Tech Name */}
+                          <h4 className="text-lg font-bold text-white group-hover:text-purple-200 transition-colors duration-300">
+                            {item.name}
+                          </h4>
+                        </div>
                       </div>
-                      <h4 className="text-sm sm:text-base lg:text-lg font-semibold text-white mb-1 sm:mb-2">{item.name}</h4>
-                      <div className="text-purple-400 text-xs sm:text-sm font-medium">{item.level}</div>
                     </div>
                   ))}
                 </div>
@@ -656,38 +689,52 @@ export default function Portfolio() {
       );
     }
 
-    if (activeFilter === 'community') {
+if (activeFilter === 'community') {
       return (
-        <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
-          {community.map((item: any) => (
-            <div key={item.id} className="group relative bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-xl sm:rounded-2xl overflow-hidden hover:bg-gray-800/60 hover:border-purple-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/25">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-                {/* Image Section */}
-                <div className="md:col-span-1">
-                  <div className="relative h-48 sm:h-56 md:h-full min-h-[200px] sm:min-h-[250px] overflow-hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover transition-transform duration-300"
-                    />
-                  </div>
-                </div>
+        <div className="max-w-4xl mx-auto space-y-6">
+          {community.map((item: any, index: number) => (
+            <div 
+              key={item.id} 
+              className="group relative transform hover:-translate-y-4 transition-all duration-700 ease-out"
+              style={{
+                animation: `float ${4 + index * 0.5}s ease-in-out infinite`,
+                animationDelay: `${index * 0.3}s`
+              }}
+            >
+              <div className="absolute inset-0 bg-cyan-500/20 rounded-2xl blur-xl translate-y-6 opacity-0 group-hover:opacity-100 group-hover:translate-y-10 transition-all duration-700"></div>
+              
+              <div className="relative bg-[rgba(26,26,46,0.7)] backdrop-blur-md border border-gray-700/40 rounded-2xl overflow-hidden hover:bg-[rgba(26,26,46,0.9)] hover:border-cyan-500/60 transition-all duration-700 hover:shadow-2xl hover:shadow-cyan-500/30">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/0 via-blue-500/0 to-cyan-500/0 group-hover:from-cyan-500/15 group-hover:via-blue-500/10 group-hover:to-cyan-500/15 transition-all duration-700"></div>
                 
-                {/* Content Section */}
-                <div className="md:col-span-2 p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
-                  <div className="inline-block px-3 py-1 bg-purple-600/20 text-purple-300 text-xs font-medium rounded-full mb-3 sm:mb-4 w-fit">
-                    {item.role}
-                  </div>
-                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-3 sm:mb-4 leading-tight line-clamp-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 line-clamp-3 sm:line-clamp-none text-justify">
-                    {item.description}
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                    <span className="text-purple-400 font-semibold text-sm sm:text-base">{item.date}</span>
+                <div className="relative z-10">
+                  <div className="grid md:grid-cols-3 gap-0">
+                    <div className="md:col-span-1">
+                      <div className="relative h-48 md:h-full min-h-[200px] overflow-hidden rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none">
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[rgba(26,26,46,0.3)] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="md:col-span-2 p-6 md:p-8 flex flex-col justify-center">
+                      <div className="inline-block px-3 py-1 bg-cyan-600/20 text-cyan-300 text-xs font-semibold rounded-full mb-4 w-fit group-hover:bg-cyan-600/30 group-hover:text-cyan-200 transition-all duration-500">
+                        {item.role}
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-bold text-white mb-4 leading-tight group-hover:text-cyan-200 transition-colors duration-500">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-300 text-base leading-relaxed mb-6 group-hover:text-gray-200 transition-colors duration-500 text-justify">
+                        {item.description}
+                      </p>
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full group-hover:scale-125 transition-transform duration-300"></div>
+                        <span className="text-cyan-400 font-bold text-base group-hover:text-cyan-300 transition-colors duration-500">{item.date}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -699,144 +746,135 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-[#16213e] to-[#1a1a2e] relative overflow-hidden">
-      {/* Background decorative elements */}
+    <section id="portfolio" className="min-h-screen py-20 bg-gradient-to-br from-[#0f0f23] via-[#1a1a2e] to-[#16213e] relative overflow-hidden">
       <div className="absolute inset-0">
-        <div className="absolute top-16 sm:top-32 right-5 sm:right-10 w-48 sm:w-72 h-48 sm:h-72 bg-purple-600/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-16 sm:bottom-32 left-5 sm:left-10 w-64 sm:w-96 h-64 sm:h-96 bg-pink-600/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-cyan-500/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 25px 25px, rgba(147, 51, 234, 0.2) 1px, transparent 0)`,
+          backgroundSize: '50px 50px'
+        }}></div>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full text-purple-300 text-sm font-medium mb-6 backdrop-blur-sm">
+              🚀 Portfolio Journey
+            </div>
+            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent mb-6 leading-[1.1] px-4">
               Portfolio Showcase
             </h2>
-            <p className="text-base sm:text-lg text-gray-400 max-w-4xl mx-auto leading-relaxed px-4">
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
               Explore my journey through projects, certifications, and technical expertise. Each section represents a milestone in my continuous learning path.
             </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400 mx-auto rounded-full mt-8"></div>
           </div>
 
-          {/* Filter Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 mb-8 sm:mb-10 lg:mb-12 px-2">
+          <div className="flex flex-wrap justify-center gap-6 mb-16">
             {filters.map((filter) => (
               <button
                 key={filter.id}
                 onClick={() => setActiveFilter(filter.id)}
-                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 ${
+                className={`flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-500 transform hover:scale-105 ${
                   activeFilter === filter.id
-                    ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-lg shadow-purple-500/25'
-                    : 'bg-gray-800/40 text-gray-400 border border-gray-700/50 hover:bg-gray-800/60 hover:text-white hover:border-purple-500/30'
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30 scale-105'
+                    : 'bg-[rgba(26,26,46,0.6)] text-gray-300 border border-gray-700/40 hover:bg-[rgba(26,26,46,0.8)] hover:text-white hover:border-purple-500/40 backdrop-blur-md'
                 }`}
               >
-                <i className={`${filter.icon} text-xs sm:text-sm`}></i>
-                <span className="hidden xs:inline sm:inline">{filter.label}</span>
-                <span className="xs:hidden sm:hidden text-xs">
-                  {filter.id === 'projects' ? 'Projects' : 
-                   filter.id === 'certificates' ? 'Certs' :
-                   filter.id === 'tech-stack' ? 'Tech' : 'Community'}
-                </span>
+                <span className="text-xl">{filter.icon}</span>
+                {filter.label}
               </button>
             ))}
           </div>
 
-          {/* Content */}
           {renderContent()}
         </div>
       </div>
 
-      {/* Project Detail Modal */}
       {showModal && selectedProject && (
         <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 overflow-y-auto">
           <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] to-[#16213e]">
-            {/* Modal Header with Breadcrumb */}
-            <div className="border-b border-gray-700/30 bg-gray-900/50 backdrop-blur-sm sticky top-0 z-10">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+            <div className="border-b border-gray-700/30 bg-[rgba(26,26,46,0.8)] backdrop-blur-md">
+              <div className="max-w-7xl mx-auto px-6 py-6">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="flex items-center gap-4">
                     <button
                       onClick={closeModal}
-                      className="flex items-center gap-2 bg-purple-600/20 border border-purple-500/30 text-purple-300 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base hover:bg-purple-600/30 transition-all duration-300"
+                      className="flex items-center gap-3 bg-purple-600/20 border border-purple-500/30 text-purple-300 px-6 py-3 rounded-2xl hover:bg-purple-600/30 transition-all duration-300 font-medium"
                     >
-                      <i className="fas fa-arrow-left"></i>
-                      <span className="hidden sm:inline">Kembali</span>
+                      ← Back
                     </button>
-                    <div className="text-gray-400 text-xs sm:text-sm">
-                      <span className="hidden sm:inline">Projects &gt;</span>
-                      <span className="text-purple-400 ml-1">{selectedProject.title}</span>
+                    <div className="text-gray-400">
+                      Projects / <span className="text-purple-400">{selectedProject.title}</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Modal Content - Responsive Layout */}
-            <div className="max-w-7xl mx-auto p-4 sm:p-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
-                {/* Left Column - Project Info */}
-                <div className="space-y-6 sm:space-y-8">
+            <div className="max-w-7xl mx-auto p-8">
+              <div className="grid lg:grid-cols-2 gap-16">
+                <div className="space-y-10">
                   <div>
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+                    <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent mb-6">
                       {selectedProject.title}
                     </h1>
-                    <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mb-4 sm:mb-6"></div>
+                    <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
                   </div>
 
-                  <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed text-justify">
+                  <p className="text-gray-300 text-xl leading-relaxed text-justify">
                     {selectedProject.detailDescription}
                   </p>
 
-                  {/* Stats */}
-                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                    <div className="bg-gray-800/50 border border-purple-500/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        <i className="fas fa-code text-purple-400 mr-2"></i>
-                        <span className="text-xl sm:text-2xl font-bold text-white">{selectedProject.technologies.length}</span>
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="bg-[rgba(26,26,46,0.8)] border border-purple-500/20 rounded-3xl p-8 text-center backdrop-blur-md">
+                      <div className="flex items-center justify-center mb-4">
+                        <span className="text-purple-400 mr-3 text-2xl">💻</span>
+                        <span className="text-3xl font-bold text-white">{selectedProject.technologies.length}</span>
                       </div>
-                      <div className="text-purple-300 font-medium text-xs sm:text-sm">Total technology</div>
+                      <div className="text-purple-300 font-semibold">Technologies</div>
                     </div>
-                    <div className="bg-gray-800/50 border border-purple-500/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        <i className="fas fa-star text-purple-400 mr-2"></i>
-                        <span className="text-xl sm:text-2xl font-bold text-white">{selectedProject.features.length}</span>
+                    <div className="bg-[rgba(26,26,46,0.8)] border border-purple-500/20 rounded-3xl p-8 text-center backdrop-blur-md">
+                      <div className="flex items-center justify-center mb-4">
+                        <span className="text-purple-400 mr-3 text-2xl">⭐</span>
+                        <span className="text-3xl font-bold text-white">{selectedProject.features.length}</span>
                       </div>
-                      <div className="text-purple-300 font-medium text-xs sm:text-sm">Key Features</div>
+                      <div className="text-purple-300 font-semibold">Features</div>
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                    {/* Hide Demo Langsung button for ExamGuard (id: 5) and Rooter Cisco (id: 7) */}
+                  <div className="flex gap-6">
                     {selectedProject.id !== 5 && selectedProject.id !== 7 && (
                       <a
                         href={selectedProject.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 sm:px-6 py-3 rounded-lg text-sm sm:text-base font-medium hover:from-purple-700 hover:to-purple-800 transition-all duration-300"
+                        className="flex items-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-2xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:scale-105"
                       >
-                        <i className="fas fa-external-link-alt"></i>
+                        <span className="text-xl">🚀</span>
                         Live Demo
                       </a>
                     )}
-                    {/* Hide GitHub button for Rooter Cisco (id: 7) */}
                     {selectedProject.id !== 7 && (
                       <a 
                         href={selectedProject.detailsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 bg-gray-800 text-gray-300 px-4 sm:px-6 py-3 rounded-lg text-sm sm:text-base font-medium hover:bg-gray-700 transition-all duration-300"
+                        className="flex items-center gap-3 bg-gray-800/80 text-gray-300 px-8 py-4 rounded-2xl font-semibold hover:bg-gray-700/80 transition-all duration-300 backdrop-blur-md hover:scale-105"
                       >
-                        {/* Change GitHub to Figma Prototype for Figma Sistem Cek Plagiarisme (id: 6) */}
                         {selectedProject.id === 6 ? (
                           <>
-                            <i className="fab fa-figma"></i>
-                            <span className="hidden sm:inline">Figma Prototype</span>
-                            <span className="sm:hidden">Figma</span>
+                            <span className="text-xl">🎨</span>
+                            Figma Design
                           </>
                         ) : (
                           <>
-                            <i className="fab fa-github"></i>
+                            <span className="text-xl">📂</span>
                             GitHub
                           </>
                         )}
@@ -844,17 +882,16 @@ export default function Portfolio() {
                     )}
                   </div>
 
-                  {/* Technologies */}
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-purple-400 mb-3 sm:mb-4 flex items-center gap-2">
-                      <i className="fas fa-code"></i>
-                      Technology Used
+                    <h3 className="text-2xl font-bold text-purple-400 mb-6 flex items-center gap-3">
+                      <span className="text-2xl">🔧</span>
+                      Technologies Used
                     </h3>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-3">
                       {selectedProject.technologies.map((tech: string, index: number) => (
                         <span
                           key={index}
-                          className="bg-gray-800/60 text-gray-300 px-3 py-2 rounded-lg text-xs sm:text-sm border border-gray-600/30"
+                          className="bg-[rgba(26,26,46,0.8)] text-gray-300 px-4 py-2 rounded-xl border border-gray-600/30 backdrop-blur-md font-medium"
                         >
                           {tech}
                         </span>
@@ -863,11 +900,9 @@ export default function Portfolio() {
                   </div>
                 </div>
 
-                {/* Right Column - Visual Content */}
-                <div className="space-y-6 sm:space-y-8">
-                  {/* Main Preview */}
-                  <div className="bg-gray-800/30 border border-gray-700/30 rounded-xl sm:rounded-2xl p-4 sm:p-6">
-                    <div className="relative h-48 sm:h-64 lg:h-80 w-full rounded-lg overflow-hidden bg-gray-700/50">
+                <div className="space-y-10">
+                  <div className="bg-[rgba(26,26,46,0.6)] border border-gray-700/30 rounded-3xl p-8 backdrop-blur-md">
+                    <div className="relative h-80 w-full rounded-2xl overflow-hidden bg-gray-700/50">
                       <Image
                         src={selectedProject.gallery && selectedProject.gallery.length > 0 ? selectedProject.gallery[activeImageIndex] : selectedProject.image}
                         alt={selectedProject.title}
@@ -877,21 +912,20 @@ export default function Portfolio() {
                     </div>
                   </div>
 
-                  {/* Gallery */}
                   {selectedProject.gallery && selectedProject.gallery.length > 1 && (
                     <div>
-                      <h3 className="text-lg sm:text-xl font-bold text-purple-400 mb-3 sm:mb-4 flex items-center gap-2">
-                        <i className="fas fa-images"></i>
-                        Galery
+                      <h3 className="text-2xl font-bold text-purple-400 mb-6 flex items-center gap-3">
+                        <span className="text-2xl">🖼️</span>
+                        Gallery
                       </h3>
-                      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3">
+                      <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
                         {selectedProject.gallery.map((image: string, index: number) => (
                           <button
                             key={index}
                             onClick={() => changeActiveImage(index)}
-                            className={`relative h-16 sm:h-20 lg:h-24 rounded-lg overflow-hidden bg-gray-700/50 border-2 transition-all duration-300 ${
+                            className={`relative h-24 rounded-2xl overflow-hidden bg-gray-700/50 border-2 transition-all duration-300 ${
                               activeImageIndex === index 
-                                ? 'border-purple-500 ring-2 ring-purple-500/50' 
+                                ? 'border-purple-500 ring-2 ring-purple-500/50 scale-105' 
                                 : 'border-gray-600/30 hover:border-purple-400/50'
                             }`}
                           >
@@ -903,7 +937,7 @@ export default function Portfolio() {
                             />
                             {activeImageIndex === index && (
                               <div className="absolute inset-0 bg-purple-500/20 flex items-center justify-center">
-                                <i className="fas fa-eye text-white text-sm sm:text-lg"></i>
+                                <span className="text-white text-2xl">👁️</span>
                               </div>
                             )}
                           </button>
@@ -912,17 +946,16 @@ export default function Portfolio() {
                     </div>
                   )}
 
-                  {/* Features */}
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-purple-400 mb-3 sm:mb-4 flex items-center gap-2">
-                      <i className="fas fa-star"></i>
+                    <h3 className="text-2xl font-bold text-purple-400 mb-6 flex items-center gap-3">
+                      <span className="text-2xl">✨</span>
                       Key Features
                     </h3>
-                    <div className="space-y-2 sm:space-y-3">
+                    <div className="space-y-4">
                       {selectedProject.features.map((feature: string, index: number) => (
-                        <div key={index} className="flex items-start gap-3 bg-gray-800/30 border border-gray-700/30 rounded-lg p-3 sm:p-4">
-                          <div className="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-gray-300 text-sm sm:text-base">{feature}</span>
+                        <div key={index} className="flex items-start gap-4 bg-[rgba(26,26,46,0.6)] border border-gray-700/30 rounded-2xl p-6 backdrop-blur-md">
+                          <div className="w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-gray-300 text-lg text-justify">{feature}</span>
                         </div>
                       ))}
                     </div>
@@ -934,37 +967,72 @@ export default function Portfolio() {
         </div>
       )}
 
-      {/* Certificate Modal */}
       {showCertificateModal && selectedCertificate && (
         <div 
-          className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4"
+          className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           onClick={closeCertificateModal}
         >
           <div 
-            className="relative max-w-5xl w-full max-h-[95vh] sm:max-h-[90vh] bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl"
+            className="relative max-w-[95vw] max-h-[95vh] bg-white rounded-2xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
             <button
               onClick={closeCertificateModal}
-              className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 w-8 h-8 sm:w-10 sm:h-10 bg-gray-200/80 hover:bg-gray-300/80 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 transition-all duration-300"
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-300"
             >
-              <i className="fas fa-times text-sm sm:text-lg"></i>
+              <span className="text-xl">✕</span>
             </button>
             
-            {/* Certificate Image */}
-            <div className="relative w-full h-full min-h-[300px] sm:min-h-[400px] max-h-[85vh] sm:max-h-[80vh]">
+            <div className="flex items-center justify-center">
               <Image
                 src={selectedCertificate.image}
                 alt={selectedCertificate.title}
-                fill
-                className="object-contain"
+                width={0}
+                height={0}
+                sizes="95vw"
+                className="w-auto h-auto max-w-[95vw] max-h-[95vh] object-contain"
                 priority
               />
             </div>
           </div>
         </div>
       )}
+
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          33% {
+            transform: translateY(-12px) rotate(1deg);
+          }
+          66% {
+            transform: translateY(-6px) rotate(-1deg);
+          }
+        }
+
+        @keyframes fillBar {
+          0% {
+            width: 0%;
+            opacity: 0;
+          }
+          50% {
+            opacity: 0.7;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+
+        @keyframes drawCircle {
+          0% {
+            stroke-dasharray: 0 97.4;
+          }
+          100% {
+            stroke-dasharray: var(--dash-array, 0) 97.4;
+          }
+        }
+      `}</style>
     </section>
   );
 }

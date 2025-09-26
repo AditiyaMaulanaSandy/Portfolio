@@ -34,9 +34,9 @@ export default function Hero() {
 
             {/* Main Title */}
             <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4 animate-fade-in-up">
-              Aditiya Maulana Sandy{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-                Portofolio
+              <span className="block sm:inline">Aditiya Maulana Sandy</span>{' '}
+              <span className="block sm:inline text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                Portfolio
               </span>
             </h1>
 
@@ -164,12 +164,13 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-1 sm:bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce z-20 hidden sm:block">
         <button
           onClick={() => scrollToSection('about')}
-          className="w-6 h-10 border-2 border-purple-400 rounded-full flex justify-center items-start p-2 hover:border-purple-300 transition-colors"
+          className="w-8 h-12 sm:w-6 sm:h-10 border-2 border-purple-400 rounded-full flex justify-center items-start p-2 hover:border-purple-300 transition-colors bg-gray-900/50 backdrop-blur-sm shadow-lg hover:shadow-purple-500/25 active:scale-95"
+          aria-label="Scroll to next section"
         >
-          <div className="w-1 h-3 bg-purple-400 rounded-full animate-pulse"></div>
+          <div className="w-1.5 h-4 sm:w-1 sm:h-3 bg-purple-400 rounded-full animate-pulse"></div>
         </button>
       </div>
     </section>
