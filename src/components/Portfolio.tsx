@@ -474,7 +474,7 @@ export default function Portfolio() {
       id: 5,
       title: 'Character Building: Pancasila - Binus University',
       category: 'community',
-      image: '/images/Comunity 1.jpg',
+      image: '/images/Comunity 1.JPG',
       description: 'Became an event organizer and delivered material (Explanation of Corruption & Cases and Criminal Law of Corruption in Indonesia).',
       date: '2023',
       role: 'Event Organizer'
@@ -682,7 +682,7 @@ export default function Portfolio() {
                   <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-3 sm:mb-4 leading-tight line-clamp-2">
                     {item.title}
                   </h3>
-                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 line-clamp-3 sm:line-clamp-none">
+                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 line-clamp-3 sm:line-clamp-none text-justify">
                     {item.description}
                   </p>
                   <div className="flex items-center gap-2">
