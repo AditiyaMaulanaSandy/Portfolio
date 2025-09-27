@@ -488,7 +488,7 @@ export default function Portfolio() {
       id: 5,
       title: 'Character Building: Pancasila - Binus University',
       category: 'community',
-      image: '/images/Comunity 1.jpg',
+      image: '/images/Comunity 1.JPG',
       description: 'Became an event organizer and delivered material (Explanation of Corruption & Cases and Criminal Law of Corruption in Indonesia).',
       date: '2023',
       role: 'Event Organizer'
