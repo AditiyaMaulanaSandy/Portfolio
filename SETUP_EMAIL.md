@@ -54,9 +54,9 @@ Edit file `src/config/email.ts` dengan data yang sudah didapat:
 
 ```typescript
 export const emailConfig = {
-  serviceId: 'YOUR_SERVICE_ID',     // Ganti dengan Service ID
-  templateId: 'YOUR_TEMPLATE_ID',   // Ganti dengan Template ID  
-  publicKey: 'YOUR_PUBLIC_KEY',     // Ganti dengan Public Key
+  serviceId: 'service_35ekctp',     // Ganti dengan Service ID
+  templateId: 'template_8vi7lh9',   // Ganti dengan Template ID  
+  publicKey: 'OS3uQw4ej1A-92Ypt',     // Ganti dengan Public Key
 };
 ```
 
