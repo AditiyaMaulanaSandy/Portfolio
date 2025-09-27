@@ -51,19 +51,17 @@ export const sendEmail = async (formData: {
     // Get sender location information
     let locationInfo = {
       location: 'Tidak diketahui',
-      country: 'Tidak diketahui',
-      ip: 'Tidak diketahui'
+      country: 'Tidak diketahui'
     };
 
     try {
-      // Get IP and location info from ipapi.co (free service)
+      // Get location info from ipapi.co (free service)
       const response = await fetch('https://ipapi.co/json/');
       if (response.ok) {
         const data = await response.json();
         locationInfo = {
           location: `${data.city || 'Tidak diketahui'}, ${data.region || ''}`.trim().replace(/,$/, ''),
-          country: data.country_name || 'Tidak diketahui',
-          ip: data.ip || 'Tidak diketahui'
+          country: data.country_name || 'Tidak diketahui'
         };
       }
     } catch (error) {
@@ -81,7 +79,6 @@ export const sendEmail = async (formData: {
       sent_date: now.toLocaleDateString('id-ID', dateOptions),
       sender_location: locationInfo.location,
       sender_country: locationInfo.country,
-      sender_ip: locationInfo.ip,
     };
 
     // Send email using EmailJS

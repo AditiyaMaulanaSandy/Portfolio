@@ -16,5 +16,4 @@ export interface EmailTemplateParams extends Record<string, unknown> {
   sent_date: string;
   sender_location: string;
   sender_country: string;
-  sender_ip: string;
 }
